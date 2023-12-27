@@ -22,7 +22,8 @@ const MainDashboard = () => {
     <div className='big-container' style={{ paddingTop: '10px' }}>
 
         {/* Location Dropdown */}
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ paddingLeft:"10px", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
         <label htmlFor='locationDropdown'>Choose Location</label>
         <select
           id='locationDropdown'
@@ -39,6 +40,7 @@ const MainDashboard = () => {
           <option value='location2'>Location 2</option>
           {/* Add more options as needed */}
         </select>
+        </div>
         <FilterComponent onFilterChange={handleFilterChange}/>
       </div>
 

@@ -37,35 +37,46 @@ const FilterComponent = ({ onFilterChange }) => {
 
   return (
     <>
-      {/* <div style={{ position: 'fixed', top: '10px', right: '50px', display: 'flex' }}> */}
-      <div style={{ }}>
-        {!showCustomPicker && (
-          <>
-            <button className="btn" onClick={() => handleFilterChange('1Day')}>
-              1D
-            </button>
-            <button className="btn" onClick={() => handleFilterChange('2Days')}>
-              2D
-            </button>
-            <button className="btn" onClick={() => handleFilterChange('1Week')}>
-              1W
-            </button>
-            <button className="btn" onClick={() => handleFilterChange('3Week')}>
-              3W
-            </button>
-            <button className="btn" onClick={() => handleFilterChange('1Month')}>
-              1M
-            </button>
-          </>
-        )}
+      <div style={{}}>
+        <button
+          className={`btn ${selectedFilter === '1Day' ? 'active' : ''}`}
+          onClick={() => handleFilterChange('1Day')}
+        >
+          1D
+        </button>
+        <button
+          className={`btn ${selectedFilter === '1Week' ? 'active' : ''}`}
+          onClick={() => handleFilterChange('1Week')}
+        >
+          1W
+        </button>
+        <button
+          className={`btn ${selectedFilter === '2Days' ? 'active' : ''}`}
+          onClick={() => handleFilterChange('2Days')}
+        >
+          2D
+        </button>
+        <button
+          className={`btn ${selectedFilter === '3Week' ? 'active' : ''}`}
+          onClick={() => handleFilterChange('3Week')}
+        >
+          3W
+        </button>
+        <button
+          className={`btn ${selectedFilter === '1Month' ? 'active' : ''}`}
+          onClick={() => handleFilterChange('1Month')}
+        >
+          1M
+        </button>
+        <button className={`btn ${selectedFilter === 'custom' ? 'active' : ''}`} onClick={() => handleFilterChange('custom')}>
+            C
+          </button>
 
         {/* Custom Date Range */}
         <div style={{}}>
-          <button className="btn" onClick={() => handleFilterChange('custom')}>
-            C
-          </button>
+          
           {showCustomPicker && (
-            <div style={{ }}>
+            <div style={{}}>
               <DatePicker
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
@@ -85,14 +96,10 @@ const FilterComponent = ({ onFilterChange }) => {
                 customInput={<CustomInput />}
                 disabledKeyboardNavigation
               />
-              <button onClick={handleCustomDateChange}>Apply</button>
+              <button style={{height:28, width:60, margin:6, borderRadius:10, border: "1px solid #FFCD29", backgroundColor:"#fbfbfb" }}  onClick={handleCustomDateChange}>Apply</button>
             </div>
           )}
-          {/* <p style={{ position: 'fixed', top: '60px', right: '55px', display: 'flex' }}>
-            Selected Filter: {selectedFilter}
-        </p>   */}
         </div>
-        
       </div>
     </>
   );
