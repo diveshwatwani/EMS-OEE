@@ -1,0 +1,133 @@
+/* OEEBYITEM.css */
+
+@import url('https://fonts.googleapis.com/css2?family=EY+Interstate:wght@400;700&display=swap');
+
+/* Add your existing styles here */
+body {
+  font-family: 'EY Interstate', sans-serif;
+}
+
+
+.oee-by-item {
+    /* Styles for the main container */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* padding: 20px; */
+
+    /* margin: 20px;  */
+  }
+  
+  .card-component {
+    /* Styles for the card component */
+    width: calc(50% - 20px); /* Adjust width as needed with margin taken into account */
+    height: 150px; /* Adjust height as needed */
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 10px;
+    margin: 10px;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-title {
+    /* Styles for the card title */
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  @media (max-width: 768px) {
+    .oee-by-item {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .card-component {
+      width: calc(100% - 20px);
+    }
+  
+    .performance-analysis,
+    .quality-analysis {
+      top: auto;
+      left: auto;
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+  /* OeeByItem.css */
+
+.oee-by-item {
+  position: relative;
+}
+
+.date {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px; /* Adjust as needed */
+  margin-right: 10px; /* Adjust as needed */
+}
+
+.performance-analysis {
+  position: absolute;
+  top: 245px;
+  /* left: 13px; */
+  line-height: 16px;
+  background-color: #e5e5e5;
+    border-color: #ffcd29;
+    border-left-style: solid;
+    border-left-width: 8px;
+    height: 32px;
+    width:195px;
+
+    margin-top: 20px; /* Adjust margin as needed */
+}
+
+.performance-analysis p {
+  /* Remove default margin to ensure proper alignment */
+ color: #333; /* Set the text color */
+ /* font-weight: bold;  */
+ text-align: left;
+ padding-left: 5px;
+ padding-top: 5px;
+
+}
+
+.quality-analysis p {
+   /* Remove default margin to ensure proper alignment */
+  color: #333; /* Set the text color */
+  /* font-weight: bold;  */
+  text-align: left;
+  padding-left: 5px;
+  padding-top: 5px;
+ 
+}
+
+.quality-analysis {
+  position: absolute;
+  top: 245px;
+  left: 620px;
+  font-size: var(--font-size-base);
+  line-height: 16px;
+  text-align: right;
+  background-color: #e5e5e5;
+    border-color: #ffcd29;
+    border-left-style: solid;
+    border-left-width: 8px;
+    height: 32px;
+    width:195px;
+
+    margin-top: 20px; /* Adjust margin as needed */
+
+}
+
+
+.shift-pie-container {
+  margin-bottom: 40px; 
+}
+

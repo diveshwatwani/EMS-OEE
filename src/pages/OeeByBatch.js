@@ -1,0 +1,60 @@
+import React from 'react';
+import CardComponent from '../components/CardComponent';
+import Title1 from '../components/Title1';
+
+
+
+import { useState } from "react";
+import { TextField, Icon } from "@mui/material";
+import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+
+import './OeeByItem.css';
+
+
+import HeatmapComponent from '../components/HeatMap';
+import Batch_Pie from '../components/Batch_Pie';
+import Batch_Stacked from '../components/Batch_Stacked';
+import Batch_Line from '../components/Batch_Line';
+import QualityBatch from '../components/QualityBatch';
+
+
+
+
+
+
+const OeeByBatch = () => {
+  const [dateDateTimePickerValue, setDateDateTimePickerValue] = useState(null);
+  return (
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+
+     
+
+      
+      <div>
+        <Title1 title="Availability Analysis" />
+
+        <div className="oee-by-item">
+          {/* Unplanned Downtime Card */}
+          <Batch_Pie />
+          {/* Breakdown for Unplanned Downtime Card */}
+          <Batch_Stacked />
+          {/* Production Speed Card */}
+          <div className="performance-analysis">
+            <p className="p">Performance Analysis</p>
+          </div>
+          {/* Add other components or content specific to this card */}
+          <Batch_Line />
+          {/* Quality Insights Card */}
+          <div className="quality-analysis">
+            <p className="p">Quality Analysis</p>
+          </div>
+          <QualityBatch />
+        </div>
+      </div>
+      
+    </LocalizationProvider>
+  );
+};
+
+export default OeeByBatch;

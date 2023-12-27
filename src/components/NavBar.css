@@ -1,0 +1,49 @@
+.nav-bar {
+    background-color: #ffcd29;
+    height: 65px;
+    position: relative;
+    width: 100%;
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+  }
+  
+  .nav-bar .text-wrapper {
+    color: #000000;
+    font-family: "Inter-Medium", Helvetica;
+    font-size: 32px;
+    font-weight: 500;
+    margin: 0 auto; /* Center horizontally */
+    width: 70%;
+    text-align: center; /* Center the text within .text-wrapper */
+  }
+  
+  .nav-bar .log-out,
+  .nav-bar .align-justify {
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5%;
+  }
+  
+  .nav-bar .align-justify {
+    left: 2%;
+  }
+  
+  .nav-bar .log-out {
+    right: 2%;
+  }
+  
+  /* Media query for smaller screens */
+  @media (max-width: 768px) {
+    .nav-bar .text-wrapper {
+      font-size: 24px;
+      width: 80%;
+    }
+  
+    .nav-bar .log-out,
+    .nav-bar .align-justify {
+      width: 8%;
+    }
+  }
+  

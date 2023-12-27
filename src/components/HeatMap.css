@@ -1,0 +1,33 @@
+.heatmap-container {
+    margin-top: 20px;
+  }
+  
+  .heatmap-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .heatmap-table th,
+  .heatmap-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .quality-cell {
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .quality-0 {
+    background-color: #ff9999; /* Poor quality */
+  }
+  
+  .quality-1 {
+    background-color: #ffff99; /* Average quality */
+  }
+  
+  .quality-2 {
+    background-color: #99ff99; /* Good quality */
+  }
+  

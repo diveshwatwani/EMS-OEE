@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=EY+Interstate:wght@400;700&display=swap');
+
+/* Add your existing styles here */
+body {
+  font-family: 'EY Interstate', sans-serif;
+}
+
+
+.title {
+    height: 32px;
+    width: 195px;
+  }
+  
+ 
+  .title .overlap-group {
+    background-color: #e5e5e5;
+    border-color: #ffcd29;
+    border-left-style: solid;
+    border-left-width: 8px;
+    height: 32px;
+    position: relative;
+    width: 195px;
+  }
+  
+  .title .text-wrapper {
+    color: #000000;
+    font-family: "Roboto-Regular", Helvetica;
+    font-size: 16px;
+    font-weight: 400;
+    left: 7px;
+    letter-spacing: 0;
+    line-height: 24px;
+    position: absolute;
+    top: -2px;
+    white-space: nowrap;
+  }
