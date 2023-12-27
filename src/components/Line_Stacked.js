@@ -11,9 +11,9 @@ function Line_Stacked() {
     tooltip: {
       enabled: true,
       enabledOnSeries: undefined,
-      shared: true,
+      shared: false,
       followCursor: false,
-      intersect: false,
+      intersect: true,
       inverseOrder: false,
       // custom: undefined,
       fillSeriesColor: false,

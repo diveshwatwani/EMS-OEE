@@ -6,13 +6,15 @@ function Batch_Stacked() {
     dataLabels: {
       enabled: false,
     },
+
+
  
     tooltip: {
       enabled: true,
       enabledOnSeries: undefined,
-      shared: true,
+      shared: false,
       followCursor: false,
-      intersect: false,
+      intersect: true,
       inverseOrder: false,
       // custom: undefined,
       fillSeriesColor: false,
@@ -24,7 +26,16 @@ function Batch_Stacked() {
       onDatasetHover: {
           highlightDataSeries: true,
           },
+
+          y: {
+            formatter: function(value, opts) {
+                    let percent = opts.w.globals.seriesPercent[opts.seriesIndex][opts.dataPointIndex];
+                    return percent.toFixed(0) + '%'
+    
+            }
+          }
         },
+        
     chart: {
       type: 'bar',
       stacked: true ,

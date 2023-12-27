@@ -52,7 +52,7 @@ function QualityLine() {
     plotOptions: {
       bar: {
         horizontal: false,
-        borderRadius: 10,
+       
       },
     },
     stroke: {},

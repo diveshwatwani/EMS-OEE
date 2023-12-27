@@ -7,12 +7,13 @@ function StackedBarchart() {
       enabled: false,
     },
  
+    //in tooltip , shared and intersect both are link , v imp to understand these concepts 
     tooltip: {
       enabled: true,
       enabledOnSeries: undefined,
-      shared: true,
+      shared: false,
       followCursor: false,
-      intersect: false,
+      intersect: true,
       inverseOrder: false,
       // custom: undefined,
       fillSeriesColor: false,

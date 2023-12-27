@@ -94,8 +94,10 @@ const MainDashLineBarChart = () => {
  
   const chartSeries = [
     {
-      // name: '%',
+      name: 'Values',
       data: [70, 99, 30],
+      
+
     },
   ];
  

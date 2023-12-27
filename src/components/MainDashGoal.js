@@ -94,7 +94,7 @@ const MainDashGoal = () => {
 
   const chartSeries = [
     {
-      // name: '%',
+      name: 'Values',
       data: [45, 94, 55 , 110 , 155],
       
     },
