@@ -3,17 +3,40 @@ import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 import Chart from "react-apexcharts";
 import { useNavigate } from 'react-router-dom';
-
+ 
 const MainDashLineBarChart = () => {
-
+ 
   const navigate = useNavigate();
-
+ 
   const handleInfoButtonClick = () => {
     // Redirect to the "tabs" component when the button is clicked
     navigate('./Tabs/Shift'); // Replace '/tabs' with the actual path of your "tabs" component
   };
-
+ 
   const chartOptions = {
+ 
+    dataLabels: {
+      enabled: false,
+    },
+ 
+    tooltip: {
+      enabled: true,
+      enabledOnSeries: undefined,
+      shared: true,
+      followCursor: false,
+      intersect: false,
+      inverseOrder: false,
+      // custom: undefined,
+      fillSeriesColor: false,
+      theme: 'dark',
+      style: {
+        fontSize: '12px',
+        fontFamily: undefined
+      },
+      onDatasetHover: {
+          highlightDataSeries: true,
+          },
+        },
     chart: {
       toolbar: {
         show: false,
@@ -33,7 +56,7 @@ const MainDashLineBarChart = () => {
         }
       }
     ],
-    xaxis: { 
+    xaxis: {
       title: {
       text: 'Shifts',
       style: {
@@ -63,21 +86,22 @@ const MainDashLineBarChart = () => {
             text: 'Target (85%)',
           },
         },
-        
+       
       ],
     },
+   
   };
-
+ 
   const chartSeries = [
     {
       // name: '%',
       data: [70, 99, 30],
     },
   ];
-
+ 
   const chartWidth = '100%'; // Set the width based on your design
   const chartHeight = '95%'; // Set the height based on your design
-
+ 
   const cardStyle = {
     position: 'relative',
     height: '250px',
@@ -90,7 +114,7 @@ const MainDashLineBarChart = () => {
     justifyContent: 'space-between', // Space elements evenly
     //overflow: 'hidden', // Add this line to clip overflow content
   };
-
+ 
   const infoButtonStyle = {
     position: 'absolute',
     top: '10px',
@@ -105,7 +129,7 @@ const MainDashLineBarChart = () => {
     justifyContent: 'center',
     color: '#fff',
   };
-
+ 
   const headingStyle = {
     color: 'black',
     //marginBottom: '10px', // Add margin to the bottom of the heading
@@ -113,11 +137,11 @@ const MainDashLineBarChart = () => {
     paddingBottom: '5px', // Add padding to separate the line from the text
   };
  
-
+ 
   return (
     <div className="card-component" style={cardStyle}>
       <span style={infoButtonStyle} onClick={handleInfoButtonClick}>i</span>
-      
+     
       <h4 style={headingStyle}>OEE By Shift</h4>
       <Chart
         width={chartWidth}
@@ -129,14 +153,12 @@ const MainDashLineBarChart = () => {
     </div>
   );
 };
-
+ 
 export default MainDashLineBarChart;
-
-
-
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
