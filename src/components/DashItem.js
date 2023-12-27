@@ -20,6 +20,27 @@ const DashItem = () => {
 
  
   const chartOptions = {
+    dataLabels: {
+      enabled: false,
+    },
+    tooltip: {
+      enabled: true,
+      enabledOnSeries: undefined,
+      shared: true,
+      followCursor: false,
+      intersect: false,
+      inverseOrder: false,
+      // custom: undefined,
+      fillSeriesColor: false,
+      theme: 'dark',
+      style: {
+        fontSize: '12px',
+        fontFamily: undefined
+      },
+      onDatasetHover: {
+          highlightDataSeries: true,
+          },
+        },
     chart: {
       toolbar: {
         show: false,
@@ -62,7 +83,10 @@ const DashItem = () => {
         {
           x: 85,
           borderColor: '#FF4560',
+         
           label: {
+         
+            position:'left',
             borderColor: '#FF4560',
             style: {
               color: '#fff',
@@ -77,7 +101,7 @@ const DashItem = () => {
  
   const chartSeries = [
     {
-      // name: '%',
+      name: 'Values',
       data: [87.09, 80.62, 86.52 , 85.37 , 85.93 , 75.17 , 83.76 , 73.34 ],
     },
   ];

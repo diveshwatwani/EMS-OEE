@@ -3,6 +3,39 @@ import Chart from 'react-apexcharts';
 
 function Batch_Stacked() {
   const chartOptions = {
+    dataLabels: {
+      enabled: false,
+    },
+
+
+ 
+    tooltip: {
+      enabled: true,
+      enabledOnSeries: undefined,
+      shared: false,
+      followCursor: false,
+      intersect: true,
+      inverseOrder: false,
+      // custom: undefined,
+      fillSeriesColor: false,
+      theme: 'dark',
+      style: {
+        fontSize: '12px',
+        fontFamily: undefined
+      },
+      onDatasetHover: {
+          highlightDataSeries: true,
+          },
+
+          y: {
+            formatter: function(value, opts) {
+                    let percent = opts.w.globals.seriesPercent[opts.seriesIndex][opts.dataPointIndex];
+                    return percent.toFixed(0) + '%'
+    
+            }
+          }
+        },
+        
     chart: {
       type: 'bar',
       stacked: true ,
@@ -41,9 +74,7 @@ function Batch_Stacked() {
     legend: {
       position: 'top'
     },
-    dataLabels: {
-      enabled: true,
-    },
+   
     grid: {
       show: true,
       xaxis: {

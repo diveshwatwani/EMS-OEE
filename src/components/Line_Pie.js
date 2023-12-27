@@ -4,6 +4,28 @@ import Chart from "react-apexcharts";
 function Line_Pie() {
   const chartOptions = {
     labels: ['Line 1 ', 'Line 2', 'Line 3 ', 'Line 4'],
+    dataLabels: {
+      enabled: false,
+    },
+ 
+    tooltip: {
+      enabled: true,
+      enabledOnSeries: undefined,
+      shared: true,
+      followCursor: false,
+      intersect: false,
+      inverseOrder: false,
+      // custom: undefined,
+      fillSeriesColor: false,
+      theme: 'dark',
+      style: {
+        fontSize: '12px',
+        fontFamily: undefined
+      },
+      onDatasetHover: {
+          highlightDataSeries: true,
+          },
+        },
   };
 
   const chartSeries = [23, 43, 50, 54 ];

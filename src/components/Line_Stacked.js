@@ -3,6 +3,29 @@ import Chart from 'react-apexcharts';
 
 function Line_Stacked() {
   const chartOptions = {
+
+    dataLabels: {
+      enabled: false,
+    },
+ 
+    tooltip: {
+      enabled: true,
+      enabledOnSeries: undefined,
+      shared: false,
+      followCursor: false,
+      intersect: true,
+      inverseOrder: false,
+      // custom: undefined,
+      fillSeriesColor: false,
+      theme: 'dark',
+      style: {
+        fontSize: '12px',
+        fontFamily: undefined
+      },
+      onDatasetHover: {
+          highlightDataSeries: true,
+          },
+        },
   
     chart: {
       type: 'bar',
@@ -44,9 +67,7 @@ function Line_Stacked() {
     legend:{
         position:'top'
     } ,
-    dataLabels:{
-        enabled:true,
-    },
+   
     grid:{
         show:true,
         xaxis:{

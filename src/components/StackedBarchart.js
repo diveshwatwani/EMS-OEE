@@ -4,6 +4,29 @@ import Chart from 'react-apexcharts';
 function StackedBarchart() {
   const chartOptions = {
 
+    dataLabels: {
+      enabled: false,
+    },
+ 
+    tooltip: {
+      enabled: true,
+      enabledOnSeries: undefined,
+      shared: false,
+      followCursor: false,
+      intersect: true,
+      inverseOrder: false,
+      // custom: undefined,
+      fillSeriesColor: false,
+      theme: 'dark',
+      style: {
+        fontSize: '12px',
+        fontFamily: undefined
+      },
+      onDatasetHover: {
+          highlightDataSeries: true,
+          },
+        },
+
     chart: {
       type: 'bar',
       stacked: true ,
@@ -45,9 +68,7 @@ function StackedBarchart() {
     legend:{
         position:'top'
     } ,
-    dataLabels:{
-        enabled:true,
-    },
+    
     grid:{
         show:true,
         xaxis:{

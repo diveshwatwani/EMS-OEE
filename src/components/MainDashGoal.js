@@ -14,6 +14,28 @@ const MainDashGoal = () => {
   };
 
   const chartOptions = {
+    
+    dataLabels: {
+      enabled: false,
+    },
+    tooltip: {
+      enabled: true,
+      enabledOnSeries: undefined,
+      shared: true,
+      followCursor: false,
+      intersect: false,
+      inverseOrder: false,
+      // custom: undefined,
+      fillSeriesColor: false,
+      theme: 'dark',
+      style: {
+        fontSize: '12px',
+        fontFamily: undefined
+      },
+      onDatasetHover: {
+          highlightDataSeries: true,
+          },
+        },
     chart: {
       toolbar: {
         show: false,
@@ -72,7 +94,7 @@ const MainDashGoal = () => {
 
   const chartSeries = [
     {
-      // name: '%',
+      name: 'Values',
       data: [45, 94, 55 , 110 , 155],
       
     },
