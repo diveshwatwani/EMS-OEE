@@ -3,6 +3,28 @@ import Chart from 'react-apexcharts';
 
 function QualityShift() {
   const chartOptions = {
+    dataLabels: {
+      enabled: false,
+    },
+ 
+    tooltip: {
+      enabled: true,
+      enabledOnSeries: undefined,
+      shared: true,
+      followCursor: false,
+      intersect: false,
+      inverseOrder: false,
+      // custom: undefined,
+      fillSeriesColor: false,
+      theme: 'dark',
+      style: {
+        fontSize: '12px',
+        fontFamily: undefined
+      },
+      onDatasetHover: {
+          highlightDataSeries: true,
+          },
+        },
     chart: {
       type: 'bar',
       stacked: true ,
@@ -52,9 +74,7 @@ function QualityShift() {
     legend: {
       position: 'top'
     },
-    dataLabels: {
-      enabled: true,
-    },
+   
     grid: {
       show: true,
       xaxis: {
@@ -68,7 +88,7 @@ function QualityShift() {
         }
       }
     },
-    colors: ['#008000', '#FFFF00', '#FF0000'], // Dark Green, Yellow, Dark Red
+    colors: ['#008000', '#FF0000'], // Dark Green, Yellow, Dark Red
   };
 
   const chartSeries = [
@@ -77,13 +97,10 @@ function QualityShift() {
       data: [345, 578, 898],
     },
     {
-      name: "Average",
+      name: "Rejected",
       data: [125, 178, 38],
     },
-    {
-      name: "Poor",
-      data: [55, 458, 218],
-    }
+    
     
   ];
 

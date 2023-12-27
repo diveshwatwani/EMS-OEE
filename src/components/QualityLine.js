@@ -3,6 +3,30 @@ import Chart from 'react-apexcharts';
 
 function QualityLine() {
   const chartOptions = {
+
+    dataLabels: {
+      enabled: false,
+    },
+ 
+    tooltip: {
+      enabled: true,
+      enabledOnSeries: undefined,
+      shared: true,
+      followCursor: false,
+      intersect: false,
+      inverseOrder: false,
+      // custom: undefined,
+      fillSeriesColor: false,
+      theme: 'dark',
+      style: {
+        fontSize: '12px',
+        fontFamily: undefined
+      },
+      onDatasetHover: {
+          highlightDataSeries: true,
+          },
+        },
+
     chart: {
       type: 'bar',
       stacked: true ,
@@ -52,9 +76,7 @@ function QualityLine() {
     legend: {
       position: 'top'
     },
-    dataLabels: {
-      enabled: true,
-    },
+   
     grid: {
       show: true,
       xaxis: {
@@ -68,22 +90,19 @@ function QualityLine() {
         }
       }
     },
-    colors: ['#008000', '#FFFF00', '#FF0000'], // Dark Green, Yellow, Dark Red
+    colors: ['#008000', '#FF0000'], // Dark Green, Yellow, Dark Red
   };
 
   const chartSeries = [
     {
       name: "Good",
-      data: [345, 578, 898 , 654],
+      data: [345, 578, 898 , 56],
     },
     {
-      name: "Average",
+      name: "Rejected",
       data: [125, 178, 38 , 345],
     },
-    {
-      name: "Poor",
-      data: [55, 458, 218 , 123] 
-    }
+   
     
   ];
 
