@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './filter.css';
 import DatePicker from 'react-datepicker';
+import { FaEdit } from "react-icons/fa";
 import 'react-datepicker/dist/react-datepicker.css';
 
 const FilterComponent = ({ onFilterChange }) => {
@@ -18,21 +19,33 @@ const FilterComponent = ({ onFilterChange }) => {
 
   const handleFilterChange = (filter) => {
     setSelectedFilter(filter);
-    onFilterChange(filter);
 
-    // If 'custom' is selected, toggle the visibility of the date picker
+    // If 'custom' is selected, show the custom picker and hide other filters
     if (filter === 'custom') {
-      setShowCustomPicker(!showCustomPicker);
+      setShowCustomPicker(true);
     } else {
-      // If any other filter is selected, hide the date picker
+      // If any other filter is selected, hide the custom picker
       setShowCustomPicker(false);
     }
+
+    // Notify the parent component about the selected filter
+    onFilterChange(filter);
   };
 
   const handleCustomDateChange = () => {
     // Handle custom date range selection
     // You can use startDate and endDate in your logic
     console.log('Selected date range:', startDate, endDate);
+  };
+
+  const handleToggleCustomPicker = () => {
+    setShowCustomPicker(!showCustomPicker);
+    // If custom picker is hidden, you may want to set a default filter
+    // For example, setting it to '1Week'
+    if (!showCustomPicker) {
+      setSelectedFilter('1Week');
+      onFilterChange('1Week');
+    }
   };
 
   return (
@@ -45,16 +58,16 @@ const FilterComponent = ({ onFilterChange }) => {
           1D
         </button>
         <button
-          className={`btn ${selectedFilter === '1Week' ? 'active' : ''}`}
-          onClick={() => handleFilterChange('1Week')}
-        >
-          1W
-        </button>
-        <button
           className={`btn ${selectedFilter === '2Days' ? 'active' : ''}`}
           onClick={() => handleFilterChange('2Days')}
         >
           2D
+        </button>
+        <button
+          className={`btn ${selectedFilter === '1Week' ? 'active' : ''}`}
+          onClick={() => handleFilterChange('1Week')}
+        >
+          1W
         </button>
         <button
           className={`btn ${selectedFilter === '3Week' ? 'active' : ''}`}
@@ -68,13 +81,12 @@ const FilterComponent = ({ onFilterChange }) => {
         >
           1M
         </button>
-        <button className={`btn ${selectedFilter === 'custom' ? 'active' : ''}`} onClick={() => handleFilterChange('custom')}>
-            C
-          </button>
+        <button className={`btn ${selectedFilter === 'custom' ? 'active' : ''}`} onClick={handleToggleCustomPicker}>
+          <FaEdit/>
+        </button>
 
         {/* Custom Date Range */}
         <div style={{}}>
-          
           {showCustomPicker && (
             <div style={{}}>
               <DatePicker

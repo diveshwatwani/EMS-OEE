@@ -22,7 +22,7 @@ const MainDashboard = () => {
     <div className='big-container' style={{ paddingTop: '10px' }}>
 
         {/* Location Dropdown */}
-      <div style={{ paddingLeft:"10px", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ paddingLeft:"10px", paddingRight:"30px", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
         <label htmlFor='locationDropdown'>Choose Location</label>
         <select
