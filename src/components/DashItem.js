@@ -25,26 +25,21 @@ const DashItem = () => {
     },
     tooltip: {
       enabled: true,
-      enabledOnSeries: undefined,
-      shared: true,
-      followCursor: false,
-      intersect: false,
-      inverseOrder: false,
-      // custom: undefined,
-      fillSeriesColor: false,
       theme: 'dark',
       style: {
         fontSize: '12px',
-        fontFamily: undefined
+        fontFamily: undefined,
+        
       },
       onDatasetHover: {
-          highlightDataSeries: true,
-          },
-        },
+        highlightDataSeries: false,
+      },
+    },
     chart: {
       toolbar: {
         show: false,
       },
+     
     },
     plotOptions: {
       bar: {
@@ -93,6 +88,8 @@ const DashItem = () => {
               background: '#FF4560',
             },
             text: 'Target ( 85 %)',
+            
+            offsetY: 90 ,
           },
         },
       ],

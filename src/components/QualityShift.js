@@ -10,9 +10,9 @@ function QualityShift() {
     tooltip: {
       enabled: true,
       enabledOnSeries: undefined,
-      shared: true,
+      shared: false,
       followCursor: false,
-      intersect: false,
+      intersect: true,
       inverseOrder: false,
       // custom: undefined,
       fillSeriesColor: false,
@@ -23,6 +23,18 @@ function QualityShift() {
       },
       onDatasetHover: {
           highlightDataSeries: true,
+          },
+
+
+          y: {
+            formatter: function (value, opts) {
+              let percent = opts.w.globals.seriesPercent[opts.seriesIndex][opts.dataPointIndex];
+              let quantity = opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex];
+              return (
+                percent.toFixed(0) + '%' +
+                ' (' + quantity + ' '  + ')'
+              );
+            },
           },
         },
     chart: {
@@ -35,6 +47,8 @@ function QualityShift() {
       zoom: {
         enabled: false,
       }
+
+      
 
     },
     responsive: [{

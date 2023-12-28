@@ -3,10 +3,13 @@ import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 import Chart from "react-apexcharts";
 import { useNavigate } from 'react-router-dom';
- 
+import './LineBarChart.css' 
+
 const MainDashLineBarChart = () => {
  
   const navigate = useNavigate();
+
+
  
   const handleInfoButtonClick = () => {
     // Redirect to the "tabs" component when the button is clicked
@@ -18,29 +21,26 @@ const MainDashLineBarChart = () => {
     dataLabels: {
       enabled: false,
     },
- 
     tooltip: {
       enabled: true,
-      enabledOnSeries: undefined,
-      shared: true,
-      followCursor: false,
-      intersect: false,
-      inverseOrder: false,
-      // custom: undefined,
-      fillSeriesColor: false,
       theme: 'dark',
       style: {
         fontSize: '12px',
-        fontFamily: undefined
+        fontFamily: undefined,
+        
       },
       onDatasetHover: {
-          highlightDataSeries: true,
-          },
-        },
+        highlightDataSeries: false,
+      },
+    },
     chart: {
       toolbar: {
         show: false,
       },
+      events: {
+        mouseEnter: function(event) {
+          event.path[0].style.cursor = "pointer";
+        } }
     },
     plotOptions: {
       bar: {
@@ -48,7 +48,7 @@ const MainDashLineBarChart = () => {
       },
     },
     colors: [
-      function({ value, seriesIndex, w }) {
+      function({ value,  w }) {
         if (value < 85) {
           return '#FF0000'
         } else {
@@ -84,6 +84,8 @@ const MainDashLineBarChart = () => {
               background: '#FF4560',
             },
             text: 'Target (85%)',
+           
+            
           },
         },
        
@@ -94,7 +96,8 @@ const MainDashLineBarChart = () => {
  
   const chartSeries = [
     {
-      name: 'Values',
+      name: 'Value',
+      
       data: [70, 99, 30],
       
 
@@ -115,6 +118,8 @@ const MainDashLineBarChart = () => {
     flexDirection: 'column', // Stack child elements vertically
     justifyContent: 'space-between', // Space elements evenly
     //overflow: 'hidden', // Add this line to clip overflow content
+
+   
   };
  
   const infoButtonStyle = {

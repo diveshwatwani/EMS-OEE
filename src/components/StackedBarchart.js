@@ -25,6 +25,19 @@ function StackedBarchart() {
       onDatasetHover: {
           highlightDataSeries: true,
           },
+
+
+
+          y: {
+            formatter: function (value, opts) {
+              let percent = opts.w.globals.seriesPercent[opts.seriesIndex][opts.dataPointIndex];
+              let quantity = opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex];
+              return (
+                percent.toFixed(0) + '%' +
+                ' (' + quantity + ' '  + ')'
+              );
+            },
+          },
         },
 
     chart: {
