@@ -79,7 +79,7 @@ function QualityShift() {
     },
     yaxis: {
       title: {
-        text: "Quality",
+        text: "Quality in %",
         style: {
           fontWeight: 'normal',
         }

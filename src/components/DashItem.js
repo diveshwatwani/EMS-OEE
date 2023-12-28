@@ -1,25 +1,22 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactApexChart from 'react-apexcharts';
-import Chart from "react-apexcharts";
+import Chart from 'react-apexcharts';
 import Tabs from './Tabs';
 
- 
- 
+
+
 const DashItem = () => {
   const navigate = useNavigate();
- 
+
   const handleInfoButtonClick = () => {
     // Redirect to the "tabs" component when the button is clicked
     navigate('./Tabs/Item'); // Replace '/tabs' with the actual path of your "tabs" component
   };
 
-
-
- 
-
- 
   const chartOptions = {
+
+
     dataLabels: {
       enabled: false,
     },
@@ -29,7 +26,6 @@ const DashItem = () => {
       style: {
         fontSize: '12px',
         fontFamily: undefined,
-        
       },
       onDatasetHover: {
         highlightDataSeries: false,
@@ -39,7 +35,8 @@ const DashItem = () => {
       toolbar: {
         show: false,
       },
-     
+
+
     },
     plotOptions: {
       bar: {
@@ -47,28 +44,36 @@ const DashItem = () => {
       },
     },
     colors: [
-      function({ value, seriesIndex, w }) {
+      function ({ value, seriesIndex, w }) {
         if (value < 85) {
-          return '#FF0000'
+          return '#FF0000';
         } else {
-          return '#008000'
+          return '#008000';
         }
-      }
-    ],
-    xaxis: { 
-      title: {
-      text: '%',
-      style: {
-        fontWeight: 'normal', // Set font weight to normal
       },
-    },
-      categories: ['Mandarin Orange', 'Chicken-Charred', 'Cherries' , 'Char Pork Rib BBQ' , 'Candy' ,
-   
-                    'Buns-chicken' , 'Beef Primal' , '24oz Hearty White'],
+    ],
+    xaxis: {
+      title: {
+        text: '%',
+        style: {
+          fontWeight: 'normal', // Set font weight to normal
+        },
+      },
+      categories: [
+        'Mandarin Orange',
+        'Chicken-Charred',
+        'Cherries',
+        'Char Pork Rib BBQ',
+        'Candy',
+        'Buns-chicken',
+        'Beef Primal',
+        '24oz Hearty White',
+      ],
     },
     yaxis: {
       title: {
-        text: 'Items',style: {
+        text: 'Items',
+        style: {
           fontWeight: 'normal', // Set font weight to normal
         },
       },
@@ -78,34 +83,33 @@ const DashItem = () => {
         {
           x: 85,
           borderColor: '#FF4560',
-         
           label: {
-         
-            position:'left',
+            position: 'left',
             borderColor: '#FF4560',
             style: {
               color: '#fff',
               background: '#FF4560',
             },
             text: 'Target ( 85 %)',
-            
-            offsetY: 90 ,
+            offsetX: 20,
+            align: 'right',
           },
         },
       ],
+
     },
   };
- 
+
   const chartSeries = [
     {
       name: 'Values',
-      data: [87.09, 80.62, 86.52 , 85.37 , 85.93 , 75.17 , 83.76 , 73.34 ],
+      data: [87.09, 80.62, 86.52, 85.37, 85.93, 75.17, 83.76, 73.34],
     },
   ];
- 
+
   const chartWidth = '100%'; // Set the width based on your design
   const chartHeight = '95%'; // Set the height based on your design
- 
+
   const cardStyle = {
     position: 'relative', // Add relative positioning to the card container
     height: '250px', // Set the desired height
@@ -117,7 +121,7 @@ const DashItem = () => {
     flexDirection: 'column', // Stack child elements vertically
     justifyContent: 'space-between', // Space elements evenly
   };
- 
+
   const infoButtonStyle = {
     position: 'absolute',
     top: '10px',
@@ -139,10 +143,12 @@ const DashItem = () => {
     borderBottom: '1px solid #ccc', // Add a grey line below the heading
     paddingBottom: '5px', // Add padding to separate the line from the text
   };
- 
+
   return (
     <div className="card-component" style={cardStyle}>
-      <span style={infoButtonStyle} onClick={handleInfoButtonClick}>i</span>
+      <span style={infoButtonStyle} onClick={handleInfoButtonClick}>
+        i
+      </span>
       <h4 style={headingStyle}>OEE By Item</h4>
       <Chart
         width={chartWidth}
@@ -154,8 +160,9 @@ const DashItem = () => {
     </div>
   );
 };
- 
+
 export default DashItem;
+
  
  
  

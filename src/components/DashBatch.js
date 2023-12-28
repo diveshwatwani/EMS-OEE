@@ -141,7 +141,7 @@ const DashBatch = () => {
     },
     yaxis: {
       title: {
-        text: 'Values',
+        text: '%',
         style: {
           fontWeight: 'normal', // Set font weight to normal
         },
