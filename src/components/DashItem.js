@@ -115,7 +115,7 @@ const DashItem = () => {
     height: '250px', // Set the desired height
     border: '1px solid #ddd', // Add any other styling properties as needed
     borderRadius: '10px',
-    padding: '15px',
+    paddingBottom: '35px',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
     display: 'flex', // Add this line to use flexbox
     flexDirection: 'column', // Stack child elements vertically
@@ -149,7 +149,7 @@ const DashItem = () => {
       <span style={infoButtonStyle} onClick={handleInfoButtonClick}>
         i
       </span>
-      <h4 style={headingStyle}>OEE By Item</h4>
+      <h5 style={headingStyle}>OEE By Item</h5>
       <Chart
         width={chartWidth}
         height={chartHeight}

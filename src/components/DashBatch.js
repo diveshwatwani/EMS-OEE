@@ -225,7 +225,7 @@ const DashBatch = () => {
     height: '250px', // Set the desired height
     border: '1px solid #ddd', // Add any other styling properties as needed
     borderRadius: '10px',
-    padding: '15px',
+    paddingBottom: '35px',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
     //overflowX: 'auto', // Add overflow-x property for horizontal scrollbar
     display: 'flex', // Add this line to use flexbox
@@ -260,7 +260,7 @@ const DashBatch = () => {
       <span style={infoButtonStyle} onClick={handleInfoButtonClick}>
         i
       </span>
-      <h4 style={headingStyle}>OEE By Batch</h4>
+      <h5 style={headingStyle}>OEE By Batch</h5>
       <Chart
         width={chartWidth}
         height={chartHeight}

@@ -149,7 +149,7 @@ const MainDashLineBarChart = () => {
     <div className="card-component" style={cardStyle}>
       <span style={infoButtonStyle} onClick={handleInfoButtonClick}>i</span>
      
-      <h4 style={headingStyle}>OEE By Shift</h4>
+      <h5 style={headingStyle}>OEE By Shift</h5>
       <Chart
         width={chartWidth}
         height={chartHeight}

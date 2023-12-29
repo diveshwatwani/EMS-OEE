@@ -24,7 +24,7 @@ body {
   
   .title .text-wrapper {
     color: #000000;
-    font-family: "Roboto-Regular", Helvetica;
+    /* font-family: "Roboto-Regular", Helvetica; */
     font-size: 16px;
     font-weight: 400;
     left: 7px;
