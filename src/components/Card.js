@@ -1,28 +1,40 @@
-import React from 'react';
-import './Card.css'; // Make sure to create a corresponding CSS file
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
 
-const Card = () => {
+function MyCard({
+  title,
+  area,
+  availability,
+  performance,
+  quality,
+  oee,
+}) {
   return (
-    <div className="card">
-      <div className="header">
-        <h1>Overall 0EEE ie 84.15%</h1>
+    <Card className="rounded-4 overflow-hidden mt-5 shadow-lg" style={{ width: "15rem"}}>
+      <Card.Title className="bg-black py-2 text-center text-white ">
+        {title}
+      </Card.Title>
+      <div className="d-flex justify-content-center ">
+        <Card.Img
+          height={70}
+          style={{ width: "auto" }}
+          className="mb-2 border rounded-1"
+          src="https://placehold.co/10"
+        />
       </div>
-      <div className="content">
-        <div className="metric">
-          <p>Availability</p>
-          <p>91.93%</p>
-        </div>
-        <div className="metric">
-          <p>Performance</p>
-          <p>96.36%</p>
-        </div>
-        <div className="metric">
-          <p>Quality</p>
-          <p>95%</p>
-        </div>
-      </div>
-    </div>
+      <ListGroup className="list-group-flush">
+        <ListGroup.Item className="bg-ey-primary-light">
+          Area: {area}
+        </ListGroup.Item>
+        <ListGroup.Item>Availability: {availability}% </ListGroup.Item>
+        <ListGroup.Item className="bg-ey-primary-light">
+          Performance: {performance}%
+        </ListGroup.Item>
+        <ListGroup.Item>Quality: {quality}%</ListGroup.Item>
+      </ListGroup>
+      <Card.Body className="bg-black text-center fs-3 fw-bolder text-white">OEE : {oee}%</Card.Body>
+    </Card>
   );
-};
+}
 
-export default Card;
+export default MyCard;

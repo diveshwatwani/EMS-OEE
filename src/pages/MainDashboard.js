@@ -1,6 +1,6 @@
 // MainDashboard.js
 import React, { useState } from 'react';
-import Card from '../components/Card';
+
 import '../components/Card.css';
 import CardComponent from '../components/CardComponent';
 import MainDashLineBarChart from '../components/MainDashLineBarChart';
@@ -48,7 +48,7 @@ const MainDashboard = () => {
       <div className='main-cards'>
         {/* ... Your existing cards ... */}
           {/* Overall OEE Card */}
-      <div className="card">
+      <div className="card1">
         <div className="header">
           <h2>Overall OEE </h2>  
            <h2> 84.15% </h2>
@@ -70,7 +70,7 @@ const MainDashboard = () => {
       </div>
 
       {/* Availability Card */}
-      <div className="card">
+      <div className="card1">
         <div className="header_a">
           <h2>Availability </h2>
           <h2>  91.93%</h2>
@@ -94,7 +94,7 @@ const MainDashboard = () => {
       </div>
 
        {/* Performance Card */}
-       <div className="card">
+       <div className="card1">
         <div className="header_p">
           <h2>Performance </h2> 
             <h2>96.36%</h2>
@@ -115,7 +115,7 @@ const MainDashboard = () => {
       </div>
 
        {/* Quality Card */}
-       <div className="card">
+       <div className="card1">
         <div className="header_q">
           <h2>Quality </h2>
            <h2> 95%</h2>

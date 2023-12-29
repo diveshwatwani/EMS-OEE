@@ -1,6 +1,6 @@
 // App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import OeeByItem from './pages/OeeByItem';
 import OeeByShift from './pages/OeeByShift';
 import Tabs from './components/Tabs';
@@ -8,19 +8,34 @@ import PieChart from './components/PieChart';
 import HeatMap from './components/HeatMap';
 import MainDashboard from './pages/MainDashboard';
 import MainDashGoal from './components/MainDashGoal';
-import Header from './components/Header';
+import Header from './components/Header1';
 import FusionChart from './components/FusionChart';
 import FilterComponent from './components/FilterComponent';
 
+
+import Factory from './pages/Factory';
+import Shop from './pages/Shop';
+import Line from './pages/Line';
+import Workstation from './pages/Workstation';
+import ProductionForm from './pages/ProductionForm';
+import ReasonForm from './pages/ReasonForm';
+import Equipment from './pages/Equipment';
+import DefectForm from './pages/DefectForm';
+import MachineCard from './pages/MachineCard';
+
+import DowntimeCard from './components/DowntimeCard';
+import Downtime from './pages/Downtime';
+
 const App = () => {
   return (
-   <wrapper>
-      <div>
-        <Header />
+    <Router>
+      
+       
         {/* <Tabs /> */}
         {/* <FilterComponent /> */}
-      </div>
-
+      
+        <div>
+          <Header />
       <Routes>
         <Route path="/oee-by-shift" element={<OeeByShift />} />
         <Route path="/pages/OeeByItem" element={<OeeByItem />} />
@@ -40,8 +55,24 @@ const App = () => {
         <Route path="/dash/Tabs/Line" element={< Tabs value={2}/>} />
         <Route path="/dash/Tabs/Item" element={< Tabs value={3}/>} />
 
+
+              {/* sakshi pages starts here  */}
+            <Route path="/productionform" element={<ProductionForm />} />
+            <Route path="/reasonform" element={<ReasonForm />} />
+            <Route path="/defectform" element={<DefectForm />} />
+            <Route path="/machinecard" element={<MachineCard />} />
+            <Route path="/factory" element={<Factory />} />
+            <Route path="/shop" element={<Shop/>} />
+            <Route path="/line" element={<Line/>} />
+            <Route path="/workstation" element={<Workstation />} />
+            <Route path="/equipment" element={<Equipment />} />
+            <Route path="/downtimecard" element={<DowntimeCard/>}/>
+            <Route path="/downtime" element={<Downtime/>}/>
+
+    
       </Routes>
-    </wrapper>
+      </div>
+    </Router>
   );
 };
 

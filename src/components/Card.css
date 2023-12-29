@@ -8,7 +8,7 @@ body {
 }
 
 
-.card {
+.card1 {
     width: 280px;
     height: 202px;
     border: 1px solid #ccc;
@@ -149,7 +149,7 @@ body {
 
 .metric p {
   
- 
+ margin-bottom: 0rem;
   font-size: 14px; /* Adjusted font size for numerical values */
 }
 

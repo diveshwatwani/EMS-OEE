@@ -112,7 +112,7 @@ const MainDashLineBarChart = () => {
     height: '250px',
     border: '1px solid #ddd',
     borderRadius: '10px',
-    padding: '15px',
+    paddingBottom: '35px',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
     display: 'flex', // Add this line to use flexbox
     flexDirection: 'column', // Stack child elements vertically
