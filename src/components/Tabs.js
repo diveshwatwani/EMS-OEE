@@ -17,7 +17,7 @@ function Tabs(value) {
   };
 
   return (
-    <div className="container">
+    <div className="cusContainer">
       <div className="bloc-tabs">
         <button
           className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
