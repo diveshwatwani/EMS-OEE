@@ -26,6 +26,8 @@ import MachineCard from './pages/MachineCard';
 import DowntimeCard from './components/DowntimeCard';
 import Downtime from './pages/Downtime';
 
+
+
 const App = () => {
   return (
     <Router>
@@ -68,6 +70,8 @@ const App = () => {
             <Route path="/equipment" element={<Equipment />} />
             <Route path="/downtimecard" element={<DowntimeCard/>}/>
             <Route path="/downtime" element={<Downtime/>}/>
+
+       
 
     
       </Routes>
