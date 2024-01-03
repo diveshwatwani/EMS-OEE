@@ -1,0 +1,19 @@
+.App {
+    font-family: "EY-interstate";
+    text-align: center;
+  }
+  
+  .bg-ey-primary-light {
+    background-color: #fff9a2;
+  }
+  
+  .bg-ey-primary,
+  .bg-ey-primary:hover {
+    background-color: #ffcd29;
+  }
+  
+  .underline {
+    text-decoration: underline;
+    text-decoration-color: #ffcd29;
+  }
+  
