@@ -52,36 +52,36 @@ const FilterComponent = ({ onFilterChange }) => {
     <>
       <div style={{}}>
         <button
-          className={`btn ${selectedFilter === '1Day' ? 'active' : ''}`}
+          className={`btn-f ${selectedFilter === '1Day' ? 'active' : ''}`}
           onClick={() => handleFilterChange('1Day')}
         >
           1D
         </button>
         <button
-          className={`btn ${selectedFilter === '2Days' ? 'active' : ''}`}
+          className={`btn-f ${selectedFilter === '2Days' ? 'active' : ''}`}
           onClick={() => handleFilterChange('2Days')}
         >
           2D
         </button>
         <button
-          className={`btn ${selectedFilter === '1Week' ? 'active' : ''}`}
+          className={`btn-f ${selectedFilter === '1Week' ? 'active' : ''}`}
           onClick={() => handleFilterChange('1Week')}
         >
           1W
         </button>
         <button
-          className={`btn ${selectedFilter === '3Week' ? 'active' : ''}`}
+          className={`btn-f ${selectedFilter === '3Week' ? 'active' : ''}`}
           onClick={() => handleFilterChange('3Week')}
         >
           3W
         </button>
         <button
-          className={`btn ${selectedFilter === '1Month' ? 'active' : ''}`}
+          className={`btn-f ${selectedFilter === '1Month' ? 'active' : ''}`}
           onClick={() => handleFilterChange('1Month')}
         >
           1M
         </button>
-        <button className={`btn ${selectedFilter === 'custom' ? 'active' : ''}`} onClick={handleToggleCustomPicker}>
+        <button className={`btn-f ${selectedFilter === 'custom' ? 'active' : ''}`} onClick={handleToggleCustomPicker}>
           <FaEdit/>
         </button>
 
