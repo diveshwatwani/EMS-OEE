@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import machineImage from '../assets/machineImage.jpg';
 import ReasonForm from "../pages/ReasonForm";
 import DowntimeCard from "../components/DowntimeCard";
+import { useNavigate } from 'react-router-dom';
 
 let machines = [
   {
@@ -37,6 +38,7 @@ let machines = [
 ];
 
 export default function Downtime() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState(null);
   const [selectedMachine, setSelectedMachine] = useState(null);
   const [selectedDowntime, setSelectedDowntime] = useState(null);
@@ -135,6 +137,11 @@ export default function Downtime() {
             </Modal.Body>
           </Modal>
         )}
+      </div>
+      <div className="d-flex justify-content-end mr-3">
+        <div style={{ marginRight: '25px' }}>
+          <Button className="bg-ey-primary text-black fw-semibold" onClick={() => navigate('/machinecard')}>Next</Button>
+        </div>
       </div>
     </div>
   );

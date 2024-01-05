@@ -1,5 +1,6 @@
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
+import imageurl from '../assets/machine.png';
 
 function MyCard({
   title,
@@ -19,7 +20,8 @@ function MyCard({
           height={70}
           style={{ width: "auto" }}
           className="mb-2 border rounded-1"
-          src="https://placehold.co/10"
+          // src="https://placehold.co/10"
+          src={imageurl}
         />
       </div>
       <ListGroup className="list-group-flush">

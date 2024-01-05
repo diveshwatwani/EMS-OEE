@@ -35,8 +35,10 @@ function AddCard({ onAddClick, cardType }) {
         return "Add Workstation";
       case "equipment":
         return "Add Equipment";
-        case "factory":
-          return "Add Factory";
+      case "factory":
+        return "Add Factory";
+        case "facility":
+          return "Add Facility";
 
       default:
         return "Add Item";
@@ -53,8 +55,10 @@ function AddCard({ onAddClick, cardType }) {
         return "Enter Workstation Name:";
       case "equipment":
         return "Enter Equipment Name:";
-        case "factory":
-          return "Enter Factory Name";
+      case "factory":
+        return "Enter Factory Name";
+      case "facility":
+        return "Enter Facility Name";
       default:
         return "Enter Name:";
     }
