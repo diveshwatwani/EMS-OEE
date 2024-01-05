@@ -1,12 +1,43 @@
-import React from "react";
+import React , {useState , useEffect }from "react";
 import Chart from "react-apexcharts";
 
 function Shift_Pie() {
+
+  const [studentSubject , setStudentsubject] = useState([]);
+  const[studentMarks , setStudentmarks]= useState([]);
+
+
+  useEffect(()=> {
+      const sSubject=[];
+      const sMarks =[];
+
+      const getStudentdata = async()=>{
+          const reqData = await fetch("https://dummyjson.com/products");
+          const resData = await reqData.json();
+          console.log(resData.products);
+
+          for(let i= 0 ; i<resData.products.length ; i++)
+          {
+              sSubject.push(resData.products[i].title);
+              sMarks.push(parseInt(resData.products[i].discountPercentage));
+
+          }
+          setStudentsubject(sSubject);
+          setStudentmarks(sMarks);
+
+          
+
+      }
+      getStudentdata();
+
+  } , []);
   const chartOptions = {
-    labels: ['Shift A', 'Shift B', 'Shift C'],
+    labels: studentSubject ,
     dataLabels: {
       enabled: false,
     },
+
+    noData :{text:"Empty Data"},
  
     tooltip: {
       enabled: true,
@@ -28,7 +59,7 @@ function Shift_Pie() {
         },
   };
 
-  const chartSeries = [23, 43, 50 ];
+  const chartSeries = studentMarks;
 
   const chartWidth = '100%'; // Set the width based on your design
   const chartHeight = '95%'; // Set the height based on your design

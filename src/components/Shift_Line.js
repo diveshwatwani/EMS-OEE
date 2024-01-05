@@ -1,84 +1,17 @@
-import React,{useState} from 'react';
+import React,{useState , useEffect} from 'react';
 import Chart from 'react-apexcharts';
 //install : npm install react-apexcharts apexcharts//
 function Shift_Line()
 {
-    const[product, setProduct]= useState(
-        [
-            {
-                name:"Shift 1",
-                data:[234,45,67,987,345,456,87,321,45,569,76,890]
-            },
-            {
-              name:"Shift 2 ",
-              data:[562,145,267,97,45,156,87,321,845,969,706,20]
-            },
-            {
-              name:"Shift 3 ",
-              data:[1012,345,117,697,845,56,287,1321,1845,469,306,120]
-            }
-           
-        ]
-    );
+    useEffect( ()=>{
+      const getvaluedata = async()=>{
+        const reqData = await fetch ('https://dummyjson.com/products');
+        const resData = await reqData.json();
+        console.log(resData.products);
 
-    const[option, setOption]= useState(
-
-        {
-          dataLabels: {
-            enabled: false,
-          },
-       
-          tooltip: {
-            enabled: true,
-            enabledOnSeries: undefined,
-            shared: true,
-            followCursor: false,
-            intersect: false,
-            inverseOrder: false,
-            // custom: undefined,
-            fillSeriesColor: false,
-            theme: 'dark',
-            style: {
-              fontSize: '12px',
-              fontFamily: undefined
-            },
-            onDatasetHover: {
-                highlightDataSeries: true,
-                },
-              },
-          chart: {
-          
-           
-            toolbar: {
-              show: false //Disable toolbar
-            } ,
-            zoom: {
-              enabled: false,
-            }
-          },
-            
-            xaxis:{
-                title:{text:"Months" ,  style: {
-                    fontWeight: 'normal', // Set font weight to normal
-                  },},
-
-                categories:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-            },
-            yaxis:{
-                title:{text:"Production Speed" ,  style: {
-                    fontWeight: 'normal', // Set font weight to normal
-                  },}                 
-            },
-            legend: {
-                position: 'top'
-              },
-              stroke: {
-                width: 1 ,
-              }
-            
-
-        }
-    );
+      }
+      getvaluedata();
+    } , [] );
 
     const chartWidth = '100%'; // Set the width based on your design
     const chartHeight = '95%'; 
@@ -109,8 +42,76 @@ function Shift_Line()
           type='line'
           width={chartWidth}
           height={chartHeight}
-          series={product}
-          options={option }
+          series={[
+            {
+                name:"Shift 1",
+                data:[234,45,67,987,345,456,87,321,45,569,76,890]
+            },
+            {
+              name:"Shift 2 ",
+              data:[562,145,267,97,45,156,87,321,845,969,706,20]
+            },
+            {
+              name:"Shift 3 ",
+              data:[1012,345,117,697,845,56,287,1321,1845,469,306,120]
+            }
+           
+        ]}
+          options={{
+            dataLabels: {
+              enabled: false,
+            },
+         
+            tooltip: {
+              enabled: true,
+              enabledOnSeries: undefined,
+              shared: true,
+              followCursor: false,
+              intersect: false,
+              inverseOrder: false,
+              // custom: undefined,
+              fillSeriesColor: false,
+              theme: 'dark',
+              style: {
+                fontSize: '12px',
+                fontFamily: undefined
+              },
+              onDatasetHover: {
+                  highlightDataSeries: true,
+                  },
+                },
+            chart: {
+            
+             
+              toolbar: {
+                show: false //Disable toolbar
+              } ,
+              zoom: {
+                enabled: false,
+              }
+            },
+              
+              xaxis:{
+                  title:{text:"Months" ,  style: {
+                      fontWeight: 'normal', // Set font weight to normal
+                    },},
+  
+                  categories:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+              },
+              yaxis:{
+                  title:{text:"Production Speed" ,  style: {
+                      fontWeight: 'normal', // Set font weight to normal
+                    },}                 
+              },
+              legend: {
+                  position: 'top'
+                },
+                stroke: {
+                  width: 1 ,
+                }
+              
+  
+          }}
           />
          
 
