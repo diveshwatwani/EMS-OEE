@@ -7,9 +7,11 @@ import * as formik from "formik";
 import * as yup from "yup";
 import DatePicker from "react-datepicker"; 
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from 'react-router-dom';
 import Header from "../components/Header1";
 
 function ProductionForm() {
+  const navigate = useNavigate();
   const { Formik } = formik;
 
   const schema = yup.object().shape({
@@ -23,7 +25,7 @@ function ProductionForm() {
 
   return (
     <div>
-      <Header/>
+      
     <div className="d-flex flex-column  align-items-center mt-4">
       <h3 className="text-center">Production Details Form</h3>
       <p style={{ fontSize: "14px", margin: "0px", textAlign: "center" }}>
@@ -120,7 +122,7 @@ function ProductionForm() {
                       showMonthYearPicker
                       dateFormat="MMMM yyyy"
                       isInvalid={touched.month && !!errors.month}
-                      className="form-control custom-date-picker"
+                      className="form-control custom-date-picker w-100" 
                     />
                     <Form.Control.Feedback type="invalid" tooltip>
                       {errors.month}
@@ -171,10 +173,7 @@ function ProductionForm() {
                 />
               </Form.Group> */}
               <div className="d-flex justify-content-center">
-                <Button
-                  className="bg-ey-primary text-black fw-semibold"
-                  type="submit"
-                >
+                <Button className="bg-ey-primary text-black fw-semibold"  >
                   Submit
                 </Button>
               </div>
@@ -183,6 +182,12 @@ function ProductionForm() {
         </Formik>
       </div>
     </div>
+    <div className="d-flex justify-content-end mr-3">
+        {/* Add padding to the right of the "Next" button */}
+        <div style={{ marginRight: '25px' }}>
+          <Button className="bg-ey-primary text-black fw-semibold" onClick={() => navigate('/defectform')}>Next</Button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -16,6 +16,9 @@ import DefectForm from './pages/DefectForm';
 import MachineCard from './pages/MachineCard';
 import DowntimeCard from './components/DowntimeCard';
 import Downtime from './pages/Downtime';
+import LandingPage from './pages/LandingPage';
+import Facility from './pages/Facility';
+
 
 
 
@@ -42,6 +45,9 @@ const App = () => {
             <Route path="/equipment" element={<Equipment />} />
             <Route path="/downtimecard" element={<DowntimeCard/>}/>
             <Route path="/downtime" element={<Downtime/>}/>  
+            <Route path="/landing" element={<LandingPage/>}/>  
+            <Route path="/facility" element={<Facility/>}/>  
+            
       </Routes>
       </div>
     </Router>

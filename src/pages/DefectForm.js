@@ -3,11 +3,13 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
+import { useNavigate } from 'react-router-dom';
 import * as formik from "formik";
 import * as yup from "yup";
-import Header from "../components/Header1";
+
 
 function DefectForm() {
+  const navigate = useNavigate();
   const { Formik } = formik;
 
   const schema = yup.object().shape({
@@ -23,7 +25,6 @@ function DefectForm() {
 
   return (
     <div>
-      <Header/>
    
     <div className="d-flex flex-column  align-items-center mt-4">
       
@@ -186,7 +187,14 @@ function DefectForm() {
           )}
         </Formik>
       </div>
+      
     </div>
+    <div className="d-flex justify-content-end mr-3">
+        {/* Add padding to the right of the "Next" button */}
+        <div style={{ marginRight: '25px' }}>
+          <Button className="bg-ey-primary text-black fw-semibold" onClick={() => navigate('/downtime')}>Next</Button>
+        </div>
+      </div>
     </div>
   );
 }

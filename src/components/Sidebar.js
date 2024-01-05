@@ -11,13 +11,15 @@ const StyledOffcanvas = styled(Offcanvas)`
 `;
 
 const HeaderWithBackground = styled(Offcanvas.Header)`
-  background-color: #555; 
+  background-color:  #FFCD29; 
+  height:54px
 `;
 
-const MenuTitle = styled.div`
+const MenuTitle = styled(Link)`
   padding: 5px, 10px;
-  color: white;
-  font-size: 25px;
+  color: black;
+  font-weight:bold;
+  font-size: 20px;
   text-align: center;
 `;
 
@@ -27,7 +29,7 @@ const StyledNav = styled(Nav)`
     color: white;
     text-decoration: none;
     padding: 15px;
-    font-size: 20px;
+    font-size: 18px;
     
     transition: color 0.3s, border-bottom 0.3s, font-size 0.3s, box-shadow 0.3s;
     border-bottom: 3px solid transparent; /* Default underline */
@@ -37,7 +39,7 @@ const StyledNav = styled(Nav)`
     color: #ffcd29; 
     border-bottom: 3px solid #ffcd29; 
     font-weight:bold;
-    font-size: 22px; 
+    font-size: 20px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
 `;
@@ -95,7 +97,7 @@ const Sidebar = ({ showSidebar, onHideSidebar, menuItems }) => {
     <div className="d-md-flex flex-md-column">
       <StyledOffcanvas show={showSidebar} onHide={onHideSidebar} backdrop={false}>
         <HeaderWithBackground closeButton>
-          <MenuTitle><BsHouse /></MenuTitle>
+          <MenuTitle to="/landing"><BsHouse /></MenuTitle>
         </HeaderWithBackground>
         <Offcanvas.Body>
           <StyledNav>
