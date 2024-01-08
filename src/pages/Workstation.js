@@ -1,41 +1,72 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import EditableCard from '../components/EditableCard';
-import PlusCard from "../components/PlusCard";
-import workstationImage from '../assets/workstation.png';
-import Header from "../components/Header";
 
-let Workstation = [
-  {
-    name: "Workstation 1",
-  },
-  {
-    name: "Workstation 2",
-  },
-  // ... other workstations
-];
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import EditableCard from '../components/EditableCard';
+import PlusCard from '../components/PlusCard';
+import workstationImage from '../assets/workstation.png';
+import Header from '../components/Header';
 
 function WorkstationPage() {
-  const [workstations, setWorkstations] = React.useState([...Workstation]);
+  const [workstations, setWorkstations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchWorkstations = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/workstation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: `
+              query Workstations {
+                workstations {
+                  id
+                  name
+                  lineId
+                }
+              }
+            `,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          setWorkstations(result.data.workstations);
+        } else {
+          setError(result.errors);
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWorkstations();
+  }, []);
+
   const handleAddWorkstation = (newWorkstationName) => {
-    setWorkstations([...workstations, { name: newWorkstationName }]);
+    // Your logic to add a new workstation
   };
 
   const handleDeleteCard = (index) => {
-    const updatedWorkstations = [...workstations];
-    updatedWorkstations.splice(index, 1);
-    setWorkstations(updatedWorkstations);
+    // Your logic to delete a workstation
   };
 
   const handleWorkstationImageClick = () => {
-    navigate("/equipment");
+    navigate('/equipment');
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
-      {/* <Header/> */}
       <h2 className="text-center mt-2 mb-0 underline">WORKSTATIONS</h2>
       <div className="d-flex gap-5 h-screen justify-content-center align-items flex-wrap">
         {workstations.map((workstation, index) => (

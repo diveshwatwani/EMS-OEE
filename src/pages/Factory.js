@@ -1,44 +1,75 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import EditableCard from '../components/EditableCard';
-import PlusCard from "../components/PlusCard";
-import factoryImage from '../assets/factory.png';
-import Header from "../components/Header";
 
-let Factory = [
-  {
-    name: "Factory 1",
-  },
-  {
-    name: "Factory 2",
-  },
-  // ... other factories
-];
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import EditableCard from '../components/EditableCard';
+import PlusCard from '../components/PlusCard';
+import factoryImage from '../assets/factory.png';
+import Header from '../components/Header';
 
 function FactoryPage() {
-  const [factorys, setFactorys] = React.useState([...Factory]);
+  const [factories, setFactories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchFactories = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/factory', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: `
+              query Factories {
+                factories {
+                  id
+                  name
+                  facilityId
+                }
+              }
+            `,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          setFactories(result.data.factories);
+        } else {
+          setError(result.errors);
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFactories();
+  }, []);
+
   const handleAddFactory = (newFactoryName) => {
-    setFactorys([...factorys, { name: newFactoryName }]);
+    // Your logic to add a new factory
   };
 
   const handleDeleteCard = (index) => {
-    const updatedFactorys = [...factorys];
-    updatedFactorys.splice(index, 1);
-    setFactorys(updatedFactorys);
+    // Your logic to delete a factory
   };
 
   const handleFactoryImageClick = () => {
-    navigate("/shop");
+    navigate('/shop');
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
-      {/* <Header/> */}
-      <h2 className="text-center mt-2 mb-0 underline">FACTORYS</h2>
+      <h2 className="text-center mt-2 mb-0 underline">FACTORIES</h2>
       <div className="d-flex gap-5 h-screen justify-content-center align-items flex-wrap">
-        {factorys.map((factory, index) => (
+        {factories.map((factory, index) => (
           <EditableCard
             key={index}
             name={factory.name}
