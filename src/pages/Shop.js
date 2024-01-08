@@ -1,69 +1,117 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import EditableCard from '../components/EditableCard';
-import PlusCard from '../components/PlusCard';
+import PlusCard from "../components/PlusCard";
 import shopImage from '../assets/shop.png';
-import Header from '../components/Header';
-
+ 
 function ShopPage() {
   const [shops, setShops] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
-
+ 
   useEffect(() => {
-    const fetchShops = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:5000/shop', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            query: `
-              query Shops {
-                shops {
+    fetchData();
+  }, []);
+ 
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/shop", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: `
+            query Shops {
+              shops {
+                id
+                name
+                factoryId
+                createdAt
+                updatedAt
+              }
+            }
+          `,
+        }),
+      });
+ 
+      const result = await response.json();
+      setShops(result.data.shops);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+ 
+  const handleAddShop = async (newShopName) => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/shop", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: `
+            mutation CreateShop($factoryId: Int!, $name: String!) {
+              createShop(factoryId: $factoryId, name: $name) {
+                shop {
                   id
                   name
                   factoryId
+                  createdAt
+                  updatedAt
                 }
               }
-            `,
-          }),
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-          setShops(result.data.shops);
-        } else {
-          setError(result.errors);
-        }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchShops();
-  }, []);
-
-  const handleAddShop = (newShopName) => {
-    // Your logic to add a new shop
+            }
+          `,
+          variables: {
+            factoryId: 3, // You may replace this value with the appropriate factoryId
+            name: newShopName,
+          },
+        }),
+      });
+ 
+      const result = await response.json();
+      setShops([...shops, result.data.createShop.shop]);
+    } catch (error) {
+      console.error("Error adding shop:", error);
+    }
   };
-
-  const handleDeleteCard = (index) => {
-    // Your logic to delete a shop
+ 
+  const handleDeleteCard = async (id, index) => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/shop", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: `
+            mutation DeleteShop($id: Int!) {
+              deleteShop(id: $id) {
+                shop {
+                  id
+                }
+              }
+            }
+          `,
+          variables: {
+            id: id,
+          },
+        }),
+      });
+ 
+      await response.json();
+      const updatedShops = [...shops];
+      updatedShops.splice(index, 1);
+      setShops(updatedShops);
+    } catch (error) {
+      console.error("Error deleting shop:", error);
+    }
   };
-
+ 
   const handleShopImageClick = () => {
-    navigate('/line');
+    navigate("/line");
   };
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-
+ 
   return (
     <div>
       <h2 className="text-center mt-2 mb-0 underline">SHOPS</h2>
@@ -73,7 +121,7 @@ function ShopPage() {
             key={index}
             name={shop.name}
             imageUrl={shopImage}
-            onDelete={() => handleDeleteCard(index)}
+            onDelete={() => handleDeleteCard(shop.id, index)}
             onImageClick={handleShopImageClick}
           />
         ))}
@@ -82,5 +130,5 @@ function ShopPage() {
     </div>
   );
 }
-
+ 
 export default ShopPage;

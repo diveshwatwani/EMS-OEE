@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EditableCard from '../components/EditableCard';
@@ -50,12 +49,71 @@ function FactoryPage() {
     fetchFactories();
   }, []);
 
-  const handleAddFactory = (newFactoryName) => {
-    // Your logic to add a new factory
+  const handleAddFactory = async (newFactoryName) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/factory', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation CreateFactory($facilityId: Int!, $name: String!) {
+              createFactory(facilityId: $facilityId, name: $name) {
+                factory {
+                  id
+                  name
+                  facilityId
+                }
+              }
+            }
+          `,
+          variables: {
+            facilityId: 4, // Replace with the appropriate facilityId
+            name: newFactoryName,
+          },
+        }),
+      });
+
+      const result = await response.json();
+      setFactories([...factories, result.data.createFactory.factory]);
+    } catch (error) {
+      console.error('Error adding factory:', error);
+    }
   };
 
-  const handleDeleteCard = (index) => {
-    // Your logic to delete a factory
+  const handleDeleteFactory = async (id, index) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/factory', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation DeleteFactory($id: Int!) {
+              deleteFactory(id: $id) {
+                factory {
+                  id
+                  name
+                  facilityId
+                }
+              }
+            }
+          `,
+          variables: {
+            id: id,
+          },
+        }),
+      });
+
+      await response.json();
+      const updatedFactories = [...factories];
+      updatedFactories.splice(index, 1);
+      setFactories(updatedFactories);
+    } catch (error) {
+      console.error('Error deleting factory:', error);
+    }
   };
 
   const handleFactoryImageClick = () => {
@@ -74,7 +132,7 @@ function FactoryPage() {
             key={index}
             name={factory.name}
             imageUrl={factoryImage}
-            onDelete={() => handleDeleteCard(index)}
+            onDelete={() => handleDeleteFactory(factory.id, index)}
             onImageClick={handleFactoryImageClick}
           />
         ))}
@@ -85,3 +143,5 @@ function FactoryPage() {
 }
 
 export default FactoryPage;
+
+

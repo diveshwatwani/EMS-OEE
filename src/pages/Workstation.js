@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EditableCard from '../components/EditableCard';
@@ -40,8 +39,8 @@ function WorkstationPage() {
         } else {
           setError(result.errors);
         }
-      } catch (err) {
-        setError(err.message);
+      } catch (error) {
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -50,12 +49,71 @@ function WorkstationPage() {
     fetchWorkstations();
   }, []);
 
-  const handleAddWorkstation = (newWorkstationName) => {
-    // Your logic to add a new workstation
+  const handleAddWorkstation = async (newWorkstationName) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/workstation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation CreateWorkstation($lineId: String!, $name: String!) {
+              createWorkstation(lineId: $lineId, name: $name) {
+                workstation {
+                  id
+                  name
+                  lineId
+                }
+              }
+            }
+          `,
+          variables: {
+            lineId: '98', // You may replace this value with the appropriate lineId
+            name: newWorkstationName,
+          },
+        }),
+      });
+
+      const result = await response.json();
+      setWorkstations([...workstations, result.data.createWorkstation.workstation]);
+    } catch (error) {
+      console.error('Error adding workstation:', error);
+    }
   };
 
-  const handleDeleteCard = (index) => {
-    // Your logic to delete a workstation
+  const handleDeleteWorkstation = async (id, index) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/workstation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation DeleteWorkstation($id: Int!) {
+              deleteWorkstation(id: $id) {
+                workstation {
+                  id
+                  lineId
+                  name
+                }
+              }
+            }
+          `,
+          variables: {
+            id: id,
+          },
+        }),
+      });
+
+      await response.json();
+      const updatedWorkstations = [...workstations];
+      updatedWorkstations.splice(index, 1);
+      setWorkstations(updatedWorkstations);
+    } catch (error) {
+      console.error('Error deleting workstation:', error);
+    }
   };
 
   const handleWorkstationImageClick = () => {
@@ -74,7 +132,7 @@ function WorkstationPage() {
             key={index}
             name={workstation.name}
             imageUrl={workstationImage}
-            onDelete={() => handleDeleteCard(index)}
+            onDelete={() => handleDeleteWorkstation(workstation.id, index)}
             onImageClick={handleWorkstationImageClick}
           />
         ))}
@@ -85,3 +143,6 @@ function WorkstationPage() {
 }
 
 export default WorkstationPage;
+
+
+

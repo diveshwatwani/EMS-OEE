@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EditableCard from '../components/EditableCard';
@@ -22,18 +21,18 @@ const FacilityPage = () => {
           },
           body: JSON.stringify({
             query: `
-            query Facilities {
-              facilities {
+              query Facilities {
+                facilities {
                   id
                   name
+                  city
+                }
               }
-          }
             `,
           }),
         });
 
         const result = await response.json();
-        console.log(result)
 
         if (response.ok) {
           setFacilities(result.data.facilities);
@@ -50,17 +49,72 @@ const FacilityPage = () => {
     fetchFacilities();
   }, []);
 
-  const handleAddFacility = (newFacilityName) => {
-  //   setFacilities([...facility, { name: newFacilityName }]);
+  const handleAddFacility = async (newFacilityName) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/facility', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation CreateFacility($city: String!, $name: String!) {
+              createFacility(city: $city, name: $name) {
+                facility {
+                  id
+                  name
+                  city
+                }
+              }
+            }
+          `,
+          variables: {
+            city: "PAKISTAN", // Replace with the appropriate city
+            name: newFacilityName,
+          },
+        }),
+      });
+
+      const result = await response.json();
+      setFacilities([...facilities, result.data.createFacility.facility]);
+    } catch (error) {
+      console.error('Error adding facility:', error);
+    }
   };
 
-  const handleDeleteCard = (index) => {
-  //   const updatedFacility = [...facility];
-  //   updatedFacility.splice(index, 1);
-  //   setFacilities(updatedFacility);
+  const handleDeleteFacility = async (id, index) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/facility', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation DeleteFacility($id: Int!) {
+              deleteFacility(id: $id) {
+                facility {
+                  id
+                  name
+                  city
+                }
+              }
+            }
+          `,
+          variables: {
+            id: id,
+          },
+        }),
+      });
+
+      await response.json();
+      const updatedFacilities = [...facilities];
+      updatedFacilities.splice(index, 1);
+      setFacilities(updatedFacilities);
+    } catch (error) {
+      console.error('Error deleting facility:', error);
+    }
   };
-
-
 
   const handleFacilityImageClick = () => {
     navigate("/factory");
@@ -78,7 +132,7 @@ const FacilityPage = () => {
             key={index}
             name={facility.name}
             imageUrl={facilityImage}
-            onDelete={() => handleDeleteCard(index)}
+            onDelete={() => handleDeleteFacility(facility.id, index)}
             onImageClick={handleFacilityImageClick}
           />
         ))}
@@ -89,3 +143,5 @@ const FacilityPage = () => {
 };
 
 export default FacilityPage;
+
+
