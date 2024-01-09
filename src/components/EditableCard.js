@@ -1,9 +1,10 @@
+
 import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { BsPencil, BsTrash, BsSave } from "react-icons/bs";
 
-function EditableCard({ name: initialName, imageUrl, onDelete, onImageClick }) {
+function EditableCard({ id, name: initialName, imageUrl, onDelete, onImageClick, onUpdate }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(initialName);
 
@@ -13,10 +14,11 @@ function EditableCard({ name: initialName, imageUrl, onDelete, onImageClick }) {
 
   const handleSave = () => {
     setIsEditing(false);
+    onUpdate(id, editedName); 
   };
 
   const handleDeleteCard = () => {
-    onDelete();
+    onDelete(id); 
   };
 
   const handleInputChange = (event) => {
@@ -58,10 +60,10 @@ function EditableCard({ name: initialName, imageUrl, onDelete, onImageClick }) {
             onChange={handleInputChange}
             onBlur={handleSave}
             style={{
-              width: "100%",  // Take up 100% of the card's width
-              padding: "3px", // Adjust padding as needed
-              margin: "0",    // Remove margin
-              fontSize: "inherit", // Use the default font size
+              width: "100%", 
+              padding: "3px", 
+              margin: "0",   
+              fontSize: "inherit", 
             }}
           />
         ) : (
@@ -73,4 +75,3 @@ function EditableCard({ name: initialName, imageUrl, onDelete, onImageClick }) {
 }
 
 export default EditableCard;
-
