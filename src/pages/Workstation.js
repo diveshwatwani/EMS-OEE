@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EditableCard from '../components/EditableCard';
@@ -39,8 +40,8 @@ function WorkstationPage() {
         } else {
           setError(result.errors);
         }
-      } catch (error) {
-        setError(error.message);
+      } catch (err) {
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -49,40 +50,17 @@ function WorkstationPage() {
     fetchWorkstations();
   }, []);
 
-  const handleAddWorkstation = async (newWorkstationName) => {
-    try {
-      const response = await fetch('http://127.0.0.1:5000/workstation', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: `
-            mutation CreateWorkstation($lineId: String!, $name: String!) {
-              createWorkstation(lineId: $lineId, name: $name) {
-                workstation {
-                  id
-                  name
-                  lineId
-                }
-              }
-            }
-          `,
-          variables: {
-            lineId: '98', // You may replace this value with the appropriate lineId
-            name: newWorkstationName,
-          },
-        }),
-      });
-
-      const result = await response.json();
-      setWorkstations([...workstations, result.data.createWorkstation.workstation]);
-    } catch (error) {
-      console.error('Error adding workstation:', error);
-    }
+  const handleAddWorkstation = (newWorkstationName) => {
   };
 
-  const handleDeleteWorkstation = async (id, index) => {
+  const handleDeleteCard = (index) => {
+  };
+
+  const handleWorkstationImageClick = () => {
+    navigate('/equipment');
+  };
+
+  const handleUpdateWorkstation = async (id, newName) => {
     try {
       const response = await fetch('http://127.0.0.1:5000/workstation', {
         method: 'POST',
@@ -91,33 +69,37 @@ function WorkstationPage() {
         },
         body: JSON.stringify({
           query: `
-            mutation DeleteWorkstation($id: Int!) {
-              deleteWorkstation(id: $id) {
+            mutation UpdateWorkstation($id: Int!, $name: String!) {
+              updateWorkstation(id: $id, name: $name) {
                 workstation {
                   id
-                  lineId
                   name
+                  lineId
                 }
               }
             }
           `,
           variables: {
             id: id,
+            name: newName,
           },
         }),
       });
 
-      await response.json();
-      const updatedWorkstations = [...workstations];
-      updatedWorkstations.splice(index, 1);
-      setWorkstations(updatedWorkstations);
-    } catch (error) {
-      console.error('Error deleting workstation:', error);
-    }
-  };
+      const result = await response.json();
 
-  const handleWorkstationImageClick = () => {
-    navigate('/equipment');
+      if (response.ok) {
+        setWorkstations((prevWorkstations) =>
+          prevWorkstations.map((workstation) =>
+            workstation.id === id ? { ...workstation, name: newName } : workstation
+          )
+        );
+      } else {
+        setError(result.errors);
+      }
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   if (loading) return <p>Loading...</p>;
@@ -127,13 +109,15 @@ function WorkstationPage() {
     <div>
       <h2 className="text-center mt-2 mb-0 underline">WORKSTATIONS</h2>
       <div className="d-flex gap-5 h-screen justify-content-center align-items flex-wrap">
-        {workstations.map((workstation, index) => (
+        {workstations.map((workstation) => (
           <EditableCard
-            key={index}
+            key={workstation.id}
+            id={workstation.id}
             name={workstation.name}
             imageUrl={workstationImage}
-            onDelete={() => handleDeleteWorkstation(workstation.id, index)}
+            onDelete={() => handleDeleteCard(workstation.id)}
             onImageClick={handleWorkstationImageClick}
+            onUpdate={handleUpdateWorkstation}
           />
         ))}
         <PlusCard onAddClick={handleAddWorkstation} cardType="workstation" />
@@ -143,6 +127,3 @@ function WorkstationPage() {
 }
 
 export default WorkstationPage;
-
-
-

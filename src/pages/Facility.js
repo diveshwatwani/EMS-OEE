@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EditableCard from '../components/EditableCard';
@@ -21,18 +22,18 @@ const FacilityPage = () => {
           },
           body: JSON.stringify({
             query: `
-              query Facilities {
-                facilities {
+            query Facilities {
+              facilities {
                   id
                   name
-                  city
-                }
               }
+          }
             `,
           }),
         });
 
         const result = await response.json();
+        console.log(result)
 
         if (response.ok) {
           setFacilities(result.data.facilities);
@@ -49,40 +50,21 @@ const FacilityPage = () => {
     fetchFacilities();
   }, []);
 
-  const handleAddFacility = async (newFacilityName) => {
-    try {
-      const response = await fetch('http://127.0.0.1:5000/facility', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: `
-            mutation CreateFacility($city: String!, $name: String!) {
-              createFacility(city: $city, name: $name) {
-                facility {
-                  id
-                  name
-                  city
-                }
-              }
-            }
-          `,
-          variables: {
-            city: "PAKISTAN", // Replace with the appropriate city
-            name: newFacilityName,
-          },
-        }),
-      });
-
-      const result = await response.json();
-      setFacilities([...facilities, result.data.createFacility.facility]);
-    } catch (error) {
-      console.error('Error adding facility:', error);
-    }
+  const handleAddFacility = (newFacilityName) => {
+ 
   };
 
-  const handleDeleteFacility = async (id, index) => {
+  const handleDeleteCard = (index) => {
+ 
+  };
+
+
+
+  const handleFacilityImageClick = () => {
+    navigate("/factory");
+  };
+
+  const handleUpdateFacility = async (id, newName) => {
     try {
       const response = await fetch('http://127.0.0.1:5000/facility', {
         method: 'POST',
@@ -91,57 +73,59 @@ const FacilityPage = () => {
         },
         body: JSON.stringify({
           query: `
-            mutation DeleteFacility($id: Int!) {
-              deleteFacility(id: $id) {
+            mutation UpdateFacility($id: Int!, $name: String!) {
+              updateFacility(id: $id, name: $name) {
                 facility {
                   id
                   name
-                  city
                 }
               }
             }
           `,
           variables: {
             id: id,
+            name: newName,
           },
         }),
       });
 
-      await response.json();
-      const updatedFacilities = [...facilities];
-      updatedFacilities.splice(index, 1);
-      setFacilities(updatedFacilities);
-    } catch (error) {
-      console.error('Error deleting facility:', error);
-    }
-  };
+      const result = await response.json();
 
-  const handleFacilityImageClick = () => {
-    navigate("/factory");
+      if (response.ok) {
+        setFacilities((prevFacilities) =>
+          prevFacilities.map((facility) =>
+            facility.id === id ? { ...facility, name: newName } : facility
+          )
+        );
+      } else {
+        setError(result.errors);
+      }
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
-
   return (
     <div>
       <h2 className="text-center mt-2 mb-0 underline">FACILITIES</h2>
       <div className="d-flex gap-5 h-screen justify-content-center align-items flex-wrap">
-        {facilities.map((facility, index) => (
+        {facilities.map((facility) => (
           <EditableCard
-            key={index}
+            key={facility.id}
+            id={facility.id}
             name={facility.name}
             imageUrl={facilityImage}
-            onDelete={() => handleDeleteFacility(facility.id, index)}
+            onDelete={() => handleDeleteCard(facility.id)}
             onImageClick={handleFacilityImageClick}
+            onUpdate={handleUpdateFacility}
           />
         ))}
         <PlusCard onAddClick={handleAddFacility} cardType="facility" />
       </div>
     </div>
   );
-};
+}
 
 export default FacilityPage;
-
-

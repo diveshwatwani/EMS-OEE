@@ -97,7 +97,7 @@ const Sidebar = ({ showSidebar, onHideSidebar, menuItems }) => {
     <div className="d-md-flex flex-md-column">
       <StyledOffcanvas show={showSidebar} onHide={onHideSidebar} backdrop={false}>
         <HeaderWithBackground closeButton>
-          <MenuTitle to="/landing"><BsHouse /></MenuTitle>
+          <MenuTitle to="/"><BsHouse /></MenuTitle>
         </HeaderWithBackground>
         <Offcanvas.Body>
           <StyledNav>

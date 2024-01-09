@@ -49,40 +49,19 @@ function FactoryPage() {
     fetchFactories();
   }, []);
 
-  const handleAddFactory = async (newFactoryName) => {
-    try {
-      const response = await fetch('http://127.0.0.1:5000/factory', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: `
-            mutation CreateFactory($facilityId: Int!, $name: String!) {
-              createFactory(facilityId: $facilityId, name: $name) {
-                factory {
-                  id
-                  name
-                  facilityId
-                }
-              }
-            }
-          `,
-          variables: {
-            facilityId: 4, // Replace with the appropriate facilityId
-            name: newFactoryName,
-          },
-        }),
-      });
-
-      const result = await response.json();
-      setFactories([...factories, result.data.createFactory.factory]);
-    } catch (error) {
-      console.error('Error adding factory:', error);
-    }
+  const handleAddFactory = (newFactoryName) => {
+   
   };
 
-  const handleDeleteFactory = async (id, index) => {
+  const handleDeleteCard = (index) => {
+    
+  };
+
+  const handleFactoryImageClick = () => {
+    navigate('/shop');
+  };
+
+  const handleUpdateFactory = async (id, newName) => {
     try {
       const response = await fetch('http://127.0.0.1:5000/factory', {
         method: 'POST',
@@ -91,34 +70,39 @@ function FactoryPage() {
         },
         body: JSON.stringify({
           query: `
-            mutation DeleteFactory($id: Int!) {
-              deleteFactory(id: $id) {
+            mutation UpdateFactory($id: Int!, $name: String!) {
+              updateFactory(id: $id, name: $name) {
                 factory {
                   id
                   name
-                  facilityId
                 }
               }
             }
           `,
           variables: {
             id: id,
+            name: newName,
           },
         }),
       });
 
-      await response.json();
-      const updatedFactories = [...factories];
-      updatedFactories.splice(index, 1);
-      setFactories(updatedFactories);
-    } catch (error) {
-      console.error('Error deleting factory:', error);
+      const result = await response.json();
+
+      if (response.ok) {
+        
+        setFactories((prevFactories) =>
+          prevFactories.map((factory) =>
+            factory.id === id ? { ...factory, name: newName } : factory
+          )
+        );
+      } else {
+        setError(result.errors);
+      }
+    } catch (err) {
+      setError(err.message);
     }
   };
 
-  const handleFactoryImageClick = () => {
-    navigate('/shop');
-  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -127,13 +111,15 @@ function FactoryPage() {
     <div>
       <h2 className="text-center mt-2 mb-0 underline">FACTORIES</h2>
       <div className="d-flex gap-5 h-screen justify-content-center align-items flex-wrap">
-        {factories.map((factory, index) => (
+        {factories.map((factory) => (
           <EditableCard
-            key={index}
+            key={factory.id}
+            id={factory.id}
             name={factory.name}
             imageUrl={factoryImage}
-            onDelete={() => handleDeleteFactory(factory.id, index)}
+            onDelete={() => handleDeleteCard(factory.id)}
             onImageClick={handleFactoryImageClick}
+            onUpdate={handleUpdateFactory}
           />
         ))}
         <PlusCard onAddClick={handleAddFactory} cardType="factory" />
@@ -143,5 +129,3 @@ function FactoryPage() {
 }
 
 export default FactoryPage;
-
-
