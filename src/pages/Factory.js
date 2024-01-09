@@ -49,12 +49,74 @@ function FactoryPage() {
     fetchFactories();
   }, []);
 
-  const handleAddFactory = (newFactoryName) => {
-   
+  const handleAddFactory = async (newFactoryName) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/factory', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation CreateFactory($facilityId: Int!, $name: String!) {
+              createFactory(facilityId: $facilityId, name: $name) {
+                factory {
+                  id
+                  name
+                  facilityId
+                }
+              }
+            }
+          `,
+          variables: {
+            facilityId: 3, // Use dynamicFacilityId
+            name: newFactoryName,
+          },
+        }),
+      });
+ 
+      const result = await response.json();
+      setFactories([...factories, result.data.createFactory.factory]);
+    } catch (error) {
+      console.error('Error adding factory:', error);
+    }
   };
-
-  const handleDeleteCard = (index) => {
-    
+ 
+  const handleDeleteFactory = async (id) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/factory', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation DeleteFactory($id: Int!) {
+              deleteFactory(id: $id) {
+                factory {
+                  id
+                }
+              }
+            }
+          `,
+          variables: {
+            id: id,
+          },
+        }),
+      });
+ 
+      const result = await response.json();
+ 
+      if (response.ok && result.data.deleteFactory) {
+        // Ensure the deletion is successful before updating the state
+        const updatedFactories = factories.filter(factory => factory.id !== id);
+        setFactories(updatedFactories);
+      } else {
+        console.error('Error deleting factory:', result.errors);
+      }
+    } catch (error) {
+      console.error('Error deleting factory:', error);
+    }
   };
 
   const handleFactoryImageClick = () => {
@@ -117,7 +179,7 @@ function FactoryPage() {
             id={factory.id}
             name={factory.name}
             imageUrl={factoryImage}
-            onDelete={() => handleDeleteCard(factory.id)}
+            onDelete={() => handleDeleteFactory(factory.id)}
             onImageClick={handleFactoryImageClick}
             onUpdate={handleUpdateFactory}
           />

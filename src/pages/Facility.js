@@ -50,12 +50,76 @@ const FacilityPage = () => {
     fetchFacilities();
   }, []);
 
-  const handleAddFacility = (newFacilityName) => {
+  const handleAddFacility = async (newFacilityName, city) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/facility', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation CreateFacility($city: String!, $name: String!) {
+              createFacility(city: $city, name: $name) {
+                facility {
+                  id
+                  name
+                  city
+                }
+              }
+            }
+          `,
+          variables: {
+            city: city,
+            name: newFacilityName,
+          },
+        }),
+      });
  
+      const result = await response.json();
+      setFacilities([...facilities, result.data.createFacility.facility]);
+    } catch (error) {
+      console.error('Error adding facility:', error);
+    }
   };
-
-  const handleDeleteCard = (index) => {
  
+  const handleDeleteFacility = async (id, index) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/facility', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation DeleteFacility($id: Int!) {
+              deleteFacility(id: $id) {
+                facility {
+                  id
+                  name
+                  city
+                }
+              }
+            }
+          `,
+          variables: {
+            id: id,
+          },
+        }),
+      });
+ 
+      const result = await response.json();
+ 
+      if (result.data && result.data.deleteFacility && result.data.deleteFacility.facility) {
+        // Deletion successful
+        const updatedFacilities = facilities.filter((facility) => facility.id !== id);
+        setFacilities(updatedFacilities);
+      } else {
+        console.error('Error deleting facility:', result.errors);
+      }
+    } catch (error) {
+      console.error('Error deleting facility:', error);
+    }
   };
 
 
@@ -117,12 +181,12 @@ const FacilityPage = () => {
             id={facility.id}
             name={facility.name}
             imageUrl={facilityImage}
-            onDelete={() => handleDeleteCard(facility.id)}
+            onDelete={() => handleDeleteFacility(facility.id)}
             onImageClick={handleFacilityImageClick}
             onUpdate={handleUpdateFacility}
           />
         ))}
-        <PlusCard onAddClick={handleAddFacility} cardType="facility" />
+        <PlusCard onAddClick={(newFacilityName) => handleAddFacility(newFacilityName, 'NEW_CITY')} cardType="facility" />
       </div>
     </div>
   );
