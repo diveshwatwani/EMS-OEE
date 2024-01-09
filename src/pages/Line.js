@@ -10,6 +10,7 @@ function LinePage() {
   const [lines, setLines] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [dynamicShopId, setDynamicShopId] = useState("2");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,12 +51,73 @@ function LinePage() {
     fetchLines();
   }, []);
 
-  const handleAddLine = (newLineName) => {
-   
+  const handleAddLine = async (newLineName) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/line', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation CreateLine($name: String!, $shopId: String!) {
+              createLine(name: $name, shopId: $shopId) {
+                line {
+                  id
+                  name
+                  shopId
+                }
+              }
+            }
+          `,
+          variables: {
+            name: newLineName,
+            shopId: dynamicShopId, 
+          },
+        }),
+      });
+ 
+      const result = await response.json();
+      setLines([...lines, result.data.createLine.line]);
+    } catch (error) {
+      console.error('Error adding line:', error);
+    }
   };
 
-  const handleDeleteCard = (index) => {
-    
+  const handleDeleteLine = async (id) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/line', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation DeleteLine($id: Int!) {
+              deleteLine(id: $id) {
+                line {
+                  id
+                }
+              }
+            }
+          `,
+          variables: {
+            id: id,
+          },
+        }),
+      });
+ 
+      const result = await response.json();
+ 
+      if (response.ok && result.data.deleteLine) {
+        const updatedLines = lines.filter(line => line.id !== id);
+        setLines(updatedLines);
+      } else {
+        console.error('Error deleting line:', result.errors);
+      }
+    } catch (error) {
+      console.error('Error deleting line:', error);
+    }
   };
 
   const handleLineImageClick = () => {
@@ -90,7 +152,6 @@ function LinePage() {
       const result = await response.json();
 
       if (response.ok) {
-        
         setLines((prevLines) =>
           prevLines.map((line) =>
             line.id === id ? { ...line, name: newName } : line
@@ -117,12 +178,12 @@ function LinePage() {
             id={line.id}
             name={line.name}
             imageUrl={lineImage}
-            onDelete={() => handleDeleteCard(line.id)}
+            onDelete={() => handleDeleteLine(line.id)}
             onImageClick={handleLineImageClick}
             onUpdate={handleUpdateLine}
           />
         ))}
-        <PlusCard onAddClick={handleAddLine} cardType="line" />
+        <PlusCard onAddClick={(newLineName) => handleAddLine(newLineName)} cardType="line" />
       </div>
     </div>
   );
